@@ -26,5 +26,6 @@ Route::post('/logout', [AuthController::class, 'logout']);
 Route::middleware('auth')->group(function () {
     Route::get('/', [HomeController::class, 'index']);
     Route::get('/profile', [ProfileController::class, 'index']);
+    Route::post('/product/export', [HomeController::class, 'export']);
     Route::resource('product', ProductController::class);
 });

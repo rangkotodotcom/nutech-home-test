@@ -20,7 +20,6 @@
             <div class="col-md-4">
                 <label for="category_id" class="form-label">Kategori</label>
                 <select name="category_id" id="category_id" class="form-select @error('category_id') is-invalid @enderror">
-                    <option value="">Semua</option>
                     @foreach ($categories as $item)
                         <option value="{{ $item->id }}" {{ old('category_id') == $item->id ? 'selected' : '' }}>
                             {{ $item->name }}

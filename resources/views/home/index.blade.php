@@ -6,16 +6,26 @@
     </div>
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="row">
                 <div class="col-8">
-                    <input type="text" class="form-control" placeholder="Cari Produk">
+                    <form action="/" method="get">
+                        <div class="input-group mb-3">
+                            @if (request()->category)
+                                <input type="hidden" name="category" value="{{ request()->category }}">
+                            @endif
+                            <input type="text" class="form-control" name="search" placeholder="Cari Barang"
+                                value="{{ request()->search }}" aria-describedby="button-addon2">
+                            <button type="submit" class="btn btn-outline-success" type="button"
+                                id="button-addon2">Cari</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-4">
-                    <select name="category_id" id="category_id" class="form-select">
+                    <select name="category_id" id="category_id" class="form-select" onchange="searchByCategory(this.value)">
                         <option value="">Semua</option>
                         @foreach ($categories as $item)
-                            <option value="{{ $item->id }}">
+                            <option value="{{ $item->id }}" {{ request()->category == $item->id ? 'selected' : '' }}>
                                 {{ $item->name }}
                             </option>
                         @endforeach
@@ -24,9 +34,11 @@
             </div>
 
         </div>
-        <div class="col-md-4"></div>
-        <div class="col-md-4 mr-0 ml-auto d-block">
-            <button class="btn btn-sm btn-success float-end">Export Excel</button>
+        <div class="col-md-6 mr-0 ml-auto d-block">
+            <form action="/product/export" class="d-inline" method="post">
+                @csrf
+                <button class="btn btn-sm btn-success float-end">Export Excel</button>
+            </form>
             <a href="/product/create" class="btn btn-sm btn-danger mx-2 float-end">Tambah Produk</a>
         </div>
     </div>
@@ -51,7 +63,7 @@
                 @foreach ($product as $item)
                     <tr>
                         <td>
-                            {{ $loop->iteration }}
+                            {{ ($product->currentPage() - 1) * $product->perPage() + $loop->iteration }}
                         </td>
                         <td>
                             <img src="{{ asset('storage/' . $item->image_path) }}" alt="" class="img-thumbnail"
@@ -87,12 +99,20 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="justify-content-end">
+            {{ $product->links() }}
+        </div>
     </div>
 
     <script async>
         function confirmDelete(nameForm) {
             return confirm('Yakin ingin menghapus produk ini?') ? document.getElementsByClassName(nameForm)[0].submit() :
                 false;
+        }
+
+        function searchByCategory(categoryId) {
+            categoryId = categoryId;
+            window.location.href = categoryId != '' ? "/?category=" + categoryId : '/';
         }
     </script>
 @endsection
