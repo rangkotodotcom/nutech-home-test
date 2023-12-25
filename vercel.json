@@ -17,7 +17,7 @@
 
         "DB_CONNECTION":"pgsql",
         "DB_HOST":"viaduct.proxy.rlwy.net",
-        "DB_PORT":45757,
+        "DB_PORT":"45757",
         "DB_DATABASE":"railway",
         "DB_USERNAME":"postgres",
         "DB_PASSWORD":"gGd2gb5d356CCCag35GE*Cg3FB3D5da6",
