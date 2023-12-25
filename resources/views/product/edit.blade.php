@@ -71,7 +71,7 @@
             </div>
             <div class="col-md-4">
                 <label for="stock" class="form-label">Stok Barang</label>
-                <input type="text" class="form-control @error('stock') is-invalid @enderror" name="stock"
+                <input type="number" class="form-control @error('stock') is-invalid @enderror" name="stock"
                     id="stock" placeholder="Stock" value="{{ old('stock', $product->stock) }}">
                 @error('stock')
                     <div class="invalid-feedback">
