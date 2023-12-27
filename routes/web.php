@@ -37,3 +37,10 @@ Route::get('/link', function () {
     $linkFolder = $_SERVER['DOCUMENT_ROOT'] . '/storage';
     symlink($targetFolder, $linkFolder);
 });
+
+Route::get('/path', function(){
+    $targetFolder = base_path().'/storage/app/public';
+    $linkFolder = $_SERVER['DOCUMENT_ROOT'].'/storage';
+
+    dd([$targetFolder, $linkFolder]);
+});
